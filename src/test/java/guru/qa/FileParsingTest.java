@@ -65,7 +65,5 @@ public class FileParsingTest {
                 assertThat(zipEntry.getName()).isEqualTo("sample.txt.txt");
             }
         }
-
-//        ZipFile zf = new ZipFile();
     }
 }
