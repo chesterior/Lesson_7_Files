@@ -1,6 +1,7 @@
 package guru.qa;
 
 import com.codeborne.pdftest.PDF;
+import com.codeborne.xlstest.XLS;
 import com.opencsv.CSVReader;
 import org.junit.jupiter.api.Test;
 
@@ -35,6 +36,13 @@ public class zipFileTest {
         try (InputStream pdfStream = zf.getInputStream(zipEntryPdf)) {
             PDF parsed = new PDF(pdfStream);
             assertThat(parsed.text).contains("Eclipse Public License - v 2.0");
+        }
+
+        ZipEntry zipEntryXls = zf.getEntry("sample-xlsx-file.xls");
+        try (InputStream pdfStream = zf.getInputStream(zipEntryXls)) {
+            XLS parsed = new XLS(pdfStream);
+            assertThat(parsed.excel.getSheetAt(0).getRow(0).getCell(0).getStringCellValue())
+                    .isEqualTo("БЮДЖЕТ-СЕМЬИ.РФ");
         }
     }
 }
